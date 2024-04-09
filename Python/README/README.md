@@ -60,12 +60,14 @@ Note these instructions are for windows
 
 ## Using the App
 
-1) Run `.\.venv\Scripts\activate`
+1) change directory to the Python folder
 
-2) Run `python chatgpt_character.py'
+2) Run `.\.venv\Scripts\activate`
 
-3) Once it's running, press 4/button on Arduino depending on branch to start the conversation, and Azure Speech-to-text will listen to your microphone and transcribe it into text.
+3) Run `python chatgpt_character.py'
 
-4) Once you're done talking, press 5/button on Arduino depending on branch. Then the code will send all of the recorded text to the Ai. Note that you should wait for the speech to be proccessed by Azure before pressing 5/button on Arduino depending on branch, check the terminal to see.
+4) Once it's running, press 4/button on Arduino depending on branch to start the conversation, and Azure Speech-to-text will listen to your microphone and transcribe it into text.
 
-5) Wait a few seconds for OpenAi to generate a response and for Google Cloud to turn that response into audio. Once it's done playing the response, you can press 4/button on Arduino depending on branch to start the loop again and continue the conversation.
+5) Once you're done talking, press 5/button on Arduino depending on branch. Then the code will send all of the recorded text to the Ai. Note that you should wait for the speech to be proccessed by Azure before pressing 5/button on Arduino depending on branch, check the terminal to see.
+
+6) Wait a few seconds for OpenAi to generate a response and for Google Cloud to turn that response into audio. Once it's done playing the response, you can press 4/button on Arduino depending on branch to start the loop again and continue the conversation.
