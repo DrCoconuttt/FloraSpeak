@@ -20,7 +20,7 @@ class AudioManager:
         delete_file (bool): means file is deleted after playback (note that this shouldn't be used for multithreaded function calls)
         play_using_music (bool): means it will use Pygame Music, if false then uses pygame Sound instead
         """
-        #print(f"Playing file with pygame: {file_path}")
+        print(f"Playing file with pygame: {file_path}")
         if not pygame.mixer.get_init(): # Reinitialize mixer if needed
             pygame.mixer.init(frequency=48000, buffer=1024) 
         if play_using_music:
@@ -57,7 +57,7 @@ class AudioManager:
                 pygame.mixer.quit()
                 try:  
                     os.remove(file_path)
-                    #print(f"Deleted the audio file.")
+                    print(f"Deleted the audio file.")
                 except PermissionError:
                     print(f"Couldn't remove {file_path} because it is being used by another process.")
     

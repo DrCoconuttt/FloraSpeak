@@ -1,25 +1,11 @@
+import time
+import keyboard
 from rich import print
 from dotenv import load_dotenv
 from azure_speech_to_text import SpeechToTextManager
 from openai_chat import OpenAiManager
 from audio_player import AudioManager
 from google_cloud_text_to_speech import GoogleTTSManager
-import time
-import keyboard
-import serial #may need to install with pip3 install pyserial 
-import time
-import os
-
-load_dotenv()
-
-# Configure the serial connection
-ser = serial.Serial(
-    port=os.getenv('PORT'),  # have to change this depending on if windows/linux/macos, for me it's  '/dev/ttyUSB0'
-    baudrate=9600,
-    timeout=1   # wait 1 second between each read from serial port
-)
-
-time.sleep(2) #giving time just in case for sensor to be ready
 
 BACKUP_FILE = "ChatHistoryBackup.txt"
 
@@ -56,53 +42,45 @@ For high temp: "I'm feeling a bit too toasty, can we cool down the ambiance?",
 Your responses should help your human caretaker understand and meet your needs. 
 
 Let's start this dialogue!'''}
-
 openai_manager.chat_history.append(FIRST_SYSTEM_MESSAGE)
 
-print("[green]Starting Loop, press the button to begin voice input")
-try:
-    while True:
-        if ser.in_waiting > 0:
-            line = ser.readline().decode('utf-8').rstrip()  # read a line from the serial port and decode it
-            print(line)  
-            
-            # storing sensor data 
-            # will be in format:
-            #Temperature = <VALUE> C
-            #Temp: <TOO LOW/SLIGHTLY LOW/GOOD/SLIGHTLY HIGH/TOO HIGH>
-            #<VALUE> lux
-            #Light: <TOO LOW/SLIGHTLY LOW/GOOD/SLIGHTLY HIGH/TOO HIGH>
-            sensor_data = line
+print("[green]Starting the loop, press 4 to begin")
+while True:
+    # Wait until user presses "4" key
+    if keyboard.read_key() != "4":
+        time.sleep(0.1)
+        continue
 
-            print("[green]Now listening to your microphone, Press the button again key to finish voice input :")
+    print("[green]Now listening to your microphone, Press 5 key to finish microphone input! :")
 
-            # Get question from mic
-            mic_result = speechtotext_manager.speechtotext_from_mic_continuous(ser)
-            
-            if mic_result == '':
-                print("[red]Did not receive any input from your microphone")
-                continue
+    # Get question from mic
+    mic_result = speechtotext_manager.speechtotext_from_mic_continuous()
+    
+    if mic_result == '':
+        print("[red]Did not receive any input from your microphone!")
+        continue
+    
+    #Could dynamically change this to simulate sensor data being changed
+    temp_status = "GOOD"
+    light_status = "GOOD"
+    moisture_status = "TOO LOW"
 
-            # Append sensor_data to mic_result
-            mic_result_with_sensor = mic_result + " " + sensor_data
+    fake_sensor_data = f"Temp: <{temp_status}> Light: <{light_status}> Moisture: <{moisture_status}>"
+    
+    mic_result_with_sensor = mic_result + " " + fake_sensor_data
 
-            # Send question to OpenAi
-            openai_result = openai_manager.chat_with_history(mic_result_with_sensor)
-            
-            # Write the results to txt file as a backup
-            with open(BACKUP_FILE, "w") as file:
-                file.write(str(openai_manager.chat_history))
+    # Send question to OpenAi
+    openai_result = openai_manager.chat_with_history(mic_result_with_sensor)
+    
+    # Write the results to txt file as a backup
+    with open(BACKUP_FILE, "w") as file:
+        file.write(str(openai_manager.chat_history))
 
-            # Convert text to speech and get the file path
-            tts_output_file = google_tts_manager.text_to_audio(openai_result, "en-US-Wavenet-D", False)
+    # Convert text to speech and get the file path
+    tts_output_file = google_tts_manager.text_to_audio(openai_result, "en-US-Wavenet-D", False)
 
-            # Play the mp3 file
-            audio_manager.play_audio(tts_output_file, True, True, True)
+    # Play the mp3 file
+    audio_manager.play_audio(tts_output_file, True, True, True)
 
-            print("[green]\n!!!!!!!\nFINISHED PROCESSING DIALOGUE.\nREADY FOR NEXT INPUT\n!!!!!!!\n")
-        
-except KeyboardInterrupt:
-    print("Program terminated by user")
-
-finally:
-    ser.close()  
+    print("[green]\n!!!!!!!\nFINISHED PROCESSING DIALOGUE.\nREADY FOR NEXT INPUT\n!!!!!!!\n")
+    

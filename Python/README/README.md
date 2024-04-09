@@ -56,13 +56,13 @@ Note these instructions are for windows
 - Go to ports, note the Arduino must be plugged in for this show up
 ![alt text](image-7.png)
 - Copy the com number and set it as the value of PORT in the .env file, here PORT='COM5'
-- Note if something doesn't work baudrate and timeout might have to be updated to match what it is set for in the port for the arduino
+- Note if something doesn't work baudrate and timeout might have to be updated to match what it is set for in the port for the Arduino
 
 ## Using the App
 
 1) Run `.\.venv\Scripts\activate`
 
-2) Run `python python chatgpt_character.py'
+2) Run `python chatgpt_character.py'
 
 3) Once it's running, press 4/button on Arduino depending on branch to start the conversation, and Azure Speech-to-text will listen to your microphone and transcribe it into text.
 

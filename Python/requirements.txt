@@ -11,4 +11,3 @@ pygame-ce==2.4.0
 rich==13.7.0
 soundfile==0.12.1
 tiktoken==0.5.1
-pyserial==3.5

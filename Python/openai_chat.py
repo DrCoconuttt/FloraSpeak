@@ -72,7 +72,7 @@ class OpenAiManager:
         self.chat_history.append({"role": "user", "content": prompt})
 
         # Check total token limit. Remove old messages as needed
-        #print(f"[coral]Chat History has a current token length of {num_tokens_from_messages(self.chat_history)}")
+        print(f"[coral]Chat History has a current token length of {num_tokens_from_messages(self.chat_history)}")
         while num_tokens_from_messages(self.chat_history) > 8000:
             self.chat_history.pop(1) # We skip the 1st message since it's the system message
             print(f"Popped a message! New token length is: {num_tokens_from_messages(self.chat_history)}")

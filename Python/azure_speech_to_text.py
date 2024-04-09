@@ -1,8 +1,8 @@
 from dotenv import load_dotenv
 import azure.cognitiveservices.speech as speechsdk
+import keyboard
 import time
 import os
-import serial #may need to install with pip3 install pyserial 
 
 class SpeechToTextManager:
     azure_speechconfig = None
@@ -22,24 +22,22 @@ class SpeechToTextManager:
         
         self.azure_speechconfig.speech_recognition_language="en-US"
 
-    def speechtotext_from_mic_continuous(self, ser):
+    def speechtotext_from_mic_continuous(self, stop_key='5'):
         self.azure_speechrecognizer = speechsdk.SpeechRecognizer(speech_config=self.azure_speechconfig)
 
         done = False
-
+        
         # Optional callback to print out whenever a chunk of speech is being recognized. This gets called basically every word.
         #def recognizing_cb(evt: speechsdk.SpeechRecognitionEventArgs):
         #    print('RECOGNIZING: {}'.format(evt))
         #self.azure_speechrecognizer.recognizing.connect(recognizing_cb)
-
-        # Optional callback to print out whenever a chunk of speech is finished being recognized.
         def recognized_cb(evt: speechsdk.SpeechRecognitionEventArgs):
-            print('RECOGNIZED: {}'.format(evt.result.text))
+            print('RECOGNIZED: {}'.format(evt))
         self.azure_speechrecognizer.recognized.connect(recognized_cb)
 
         # We register this to fire if we get a session_stopped or cancelled event.
         def stop_cb(evt: speechsdk.SessionEventArgs):
-            #print('CLOSING speech recognition on {}'.format(evt))
+            print('CLOSING speech recognition on {}'.format(evt))
             nonlocal done
             done = True
 
@@ -62,12 +60,11 @@ class SpeechToTextManager:
         print('Continuous Speech Recognition is now running, say something.')
 
         while not done:
-            if ser.in_waiting > 0:
-                ser.readline().decode('utf-8').rstrip() # Readline to remove from in_waiting, this is a dumb way to read button input but meh
-                print("Processing ending azure speech recognition\n")
+            if keyboard.read_key() == stop_key:
+                print("\nEnding azure speech recognition\n")
                 self.azure_speechrecognizer.stop_continuous_recognition_async()
                 time.sleep(1) #Time to let speech process unporcessed speech said right before button press
-                break            
+                break
 
         final_result = " ".join(all_results).strip()
         print(f"\n\nHeres the result we got!\n\n{final_result}\n\n")
