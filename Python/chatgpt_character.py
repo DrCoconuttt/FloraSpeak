@@ -12,15 +12,6 @@ import os
 
 load_dotenv()
 
-# Configure the serial connection
-ser = serial.Serial(
-    port=os.getenv('PORT'),  # have to change this depending on if windows/linux/macos, for me it's  '/dev/ttyUSB0'
-    baudrate=9600,
-    timeout=1   # wait 1 second between each read from serial port
-)
-
-time.sleep(2) #giving time just in case for sensor to be ready
-
 BACKUP_FILE = "ChatHistoryBackup.txt"
 
 # Initialize managers
