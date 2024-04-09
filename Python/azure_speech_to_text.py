@@ -32,12 +32,12 @@ class SpeechToTextManager:
         #    print('RECOGNIZING: {}'.format(evt))
         #self.azure_speechrecognizer.recognizing.connect(recognizing_cb)
         def recognized_cb(evt: speechsdk.SpeechRecognitionEventArgs):
-            print('RECOGNIZED: {}'.format(evt))
+            print('RECOGNIZED: {}'.format(evt.result.text))
         self.azure_speechrecognizer.recognized.connect(recognized_cb)
 
         # We register this to fire if we get a session_stopped or cancelled event.
         def stop_cb(evt: speechsdk.SessionEventArgs):
-            print('CLOSING speech recognition on {}'.format(evt))
+            #print('CLOSING speech recognition on {}'.format(evt))
             nonlocal done
             done = True
 
@@ -61,7 +61,7 @@ class SpeechToTextManager:
 
         while not done:
             if keyboard.read_key() == stop_key:
-                print("\nEnding azure speech recognition\n")
+                print("Processing ending azure speech recognition\n")
                 self.azure_speechrecognizer.stop_continuous_recognition_async()
                 time.sleep(1) #Time to let speech process unporcessed speech said right before button press
                 break
