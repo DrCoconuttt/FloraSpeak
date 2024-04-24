@@ -1,6 +1,6 @@
 # FloraSpeak
 
-Flora Speak is designed to personify plants and foster good plant care practices. ChatGPT is used to allow plants to have conversation. The project utilizes Arduino sensors are used to determine plant health, detecting factors such as moisture, temperature and light levels. This data enables ChatGPT to understand the plants current condition that updates in real-time. The personification aims to deepen the human-plant connection, fostering increased care and engagement by transforming routine plant care into a more interactive and emotionally engaging experience.
+FloraSpeak is designed to personify plants and foster good plant care practices. ChatGPT is used to allow plants to have conversation. The project utilizes Arduino sensors are used to determine plant health, detecting factors such as moisture, temperature and light levels. This data enables ChatGPT to understand the plants current condition that updates in real-time. The personification aims to deepen the human-plant connection, fostering increased care and engagement by transforming routine plant care into a more interactive and emotionally engaging experience.
 
 ### Video Demo
 
