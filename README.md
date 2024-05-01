@@ -1,7 +1,6 @@
 # FloraSpeak
 
-While numerous smart gardening systems prioritize updates, alerts, and automated watering to sustain plant health, few delve into the concept of personifying a plant and imbuing it with human attributes to foster caretaking practices that ensure its well-being.
-Allowing plants to converse, react, and express themselves akin to humans, responding to factors such as moisture, temperature, and light detected by sensors and Arduino. Enabling proactive and context-aware dialogues with users through conversational AI, using Chat GPT, to let plants express their needs and respond to plant care questions in real-time.
+FloraSpeak is designed to personify plants and foster good plant care practices. Through the use of ChatGPT users can have conversations with plants. This project utilizes Arduino sensors to determine plant health. The sensors detect factors such as moisture, temperature and light levels. This data enables ChatGPT to understand the plant's current condition and provide updates in real-time. The personification aims to deepen the human-plant connection, fostering increased care and engagement by transforming routine plant care into a more interactive and emotionally engaging experience.
 
 ### Video Demo
 
@@ -9,7 +8,7 @@ Allowing plants to converse, react, and express themselves akin to humans, respo
 
 ### Setup Without Arduino
 
-To setup and use test without need for adruino:
+To setup and use the version that does not require an Adruino:
 1. Swap to the Working-Without-Arduino branch.
 2. View the README in the Python folder for instructions on how to setup and run.
 
@@ -28,3 +27,4 @@ To setup and use test without need for adruino:
 ![alt text](ReadmeImages/Demo6.jpg)
 
 ![alt text](ReadmeImages/Demo7.jpg)
+
