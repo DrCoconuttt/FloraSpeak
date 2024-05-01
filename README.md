@@ -8,7 +8,7 @@ FloraSpeak is designed to personify plants and foster good plant care practices.
 
 ### Setup Without Arduino
 
-To setup and use test without need for adruino:
+To setup and use the version that does not require an Adruino:
 1. Swap to the Working-Without-Arduino branch.
 2. View the README in the Python folder for instructions on how to setup and run.
 
